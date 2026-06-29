@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Babuye mark</title>
+  <rect width="64" height="64" rx="2" fill="#111111"/>
+  <path d="M14 50V14h18.5c10.8 0 17.5 5.4 17.5 14.3 0 4.4-1.8 8-5.1 10.3 2.5 2.2 4.1 5.3 4.1 9.4v2H14Zm10.2-21.3h8.1c4.5 0 7.2-2 7.2-5.2 0-3.2-2.7-5.1-7.2-5.1h-8.1v10.3Zm0 16.9h9.3c4.5 0 7.4-2 7.4-5.4 0-3.3-2.9-5.3-7.4-5.3h-9.3v10.7Z" fill="#F7F6F1"/>
+</svg>

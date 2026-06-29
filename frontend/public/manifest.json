@@ -1,0 +1,9 @@
+{
+  "short_name": "Babuye",
+  "name": "Babuye Aluminium & Glass Systems Company",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#002060",
+  "background_color": "#ffffff"
+}
