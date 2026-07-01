@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Seo from '../components/Seo';
 import Container from '../components/ui/Container';
 import SectionHeader from '../components/ui/SectionHeader';
@@ -18,6 +19,58 @@ const valuePoints = [
   'Legal identity: Babuye Investment Limited, operating as Babuye Aluminium & Glass Systems Company.',
   'Value addition through technical review, showroom support, manufacturing coordination, quality control, and site-aware installation.',
 ];
+
+function FullscreenVideoModal({ src, onClose }) {
+  useEffect(() => {
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      window.removeEventListener('keydown', handleEscape);
+    };
+  }, [onClose]);
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[2147483647] flex min-h-[100svh] w-screen items-center justify-center overflow-hidden bg-black/95 px-3 py-5 sm:px-6 lg:px-10"
+      role="dialog"
+      aria-modal="true"
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        className="fixed right-4 top-4 z-[2147483647] flex h-11 w-11 items-center justify-center border border-white/30 bg-black/40 text-2xl leading-none text-white backdrop-blur transition hover:bg-white hover:text-black sm:right-6 sm:top-6 sm:h-12 sm:w-12"
+        aria-label="Close video"
+      >
+        ×
+      </button>
+
+      <div className="relative z-[2147483646] flex w-full max-w-[1200px] items-center justify-center">
+        <video
+          className="block max-h-[82svh] w-full max-w-full bg-black object-contain sm:max-h-[86svh] lg:max-h-[88svh]"
+          src={src}
+          controls
+          autoPlay
+          playsInline
+        />
+      </div>
+    </div>,
+    document.body,
+  );
+}
 
 export default function Home() {
   const [videoOpen, setVideoOpen] = useState(false);
@@ -58,7 +111,6 @@ export default function Home() {
           </div>
         </Container>
 
-        {/* Full-width intro video section */}
         <div className="w-full bg-[#202223] py-16 text-white sm:py-20 lg:py-24">
           <Container>
             <div className="mb-12 flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.34em] text-white">
@@ -68,7 +120,9 @@ export default function Home() {
 
             <div className="mb-12 max-w-5xl">
               <h3 className="font-display text-[clamp(2.8rem,5vw,5.8rem)] font-light leading-[0.95] tracking-[-0.065em] text-white">
-                See how vision becomes installed glass and aluminium systems.
+                From <em className="italic">vision</em> to precision-built{' '}
+                <em className="italic">glass</em> and{' '}
+                <em className="italic">aluminium</em> systems.
               </h3>
             </div>
 
@@ -88,8 +142,8 @@ export default function Home() {
 
               <div className="absolute inset-0 bg-black/25" />
 
-              <div className="absolute left-1/2 top-1/2 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-white text-navy transition duration-300 group-hover:scale-110 group-hover:bg-[#002060] group-hover:text-white">
-                <span className="ml-1 h-0 w-0 border-y-[12px] border-l-[18px] border-y-transparent border-l-current" />
+              <div className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-white text-navy transition duration-300 group-hover:scale-110 group-hover:bg-[#002060] group-hover:text-white sm:h-24 sm:w-24">
+                <span className="ml-1 h-0 w-0 border-y-[10px] border-l-[16px] border-y-transparent border-l-current sm:border-y-[12px] sm:border-l-[18px]" />
               </div>
 
               <div className="absolute bottom-6 left-6 font-mono text-xs font-bold uppercase tracking-[0.28em] text-white">
@@ -101,24 +155,10 @@ export default function Home() {
       </section>
 
       {videoOpen && (
-        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/95 p-4">
-          <button
-            type="button"
-            onClick={() => setVideoOpen(false)}
-            className="absolute right-5 top-5 z-10 flex h-12 w-12 items-center justify-center border border-white/30 text-2xl leading-none text-white transition hover:bg-white hover:text-black"
-            aria-label="Close video"
-          >
-            ×
-          </button>
-
-          <video
-            className="max-h-[92vh] w-full max-w-6xl bg-black"
-            src={introVideo}
-            controls
-            autoPlay
-            playsInline
-          />
-        </div>
+        <FullscreenVideoModal
+          src={introVideo}
+          onClose={() => setVideoOpen(false)}
+        />
       )}
 
       <ServicesPreview />
@@ -126,7 +166,7 @@ export default function Home() {
       <PartnerMarquee />
       <ProjectsPreview />
       <ManufacturingPreview />
-      <ProfileVideo />
+      {/* <ProfileVideo /> */}
       <SafetyPreview />
       <ContactCTA />
     </>

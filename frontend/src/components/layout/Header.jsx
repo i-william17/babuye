@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Menu as MenuIcon } from 'lucide-react';
 import { useScrollDirection } from '../../hooks/useScrollDirection';
 import { useActiveRoute } from '../../hooks/useActiveRoute';
 import logo from '../../assets/logos/babuye-logo.png';
@@ -203,11 +203,12 @@ export default function Header() {
           </div>
 
           <button
-            className="focus-ring min-h-11 px-3 text-sm font-semibold uppercase text-navy lg:hidden"
+            className="focus-ring flex h-11 w-11 items-center justify-center text-navy lg:hidden"
             type="button"
             onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
           >
-            Menu
+            <MenuIcon className="h-7 w-7 stroke-[1.45]" aria-hidden="true" />
           </button>
         </Container>
       </header>

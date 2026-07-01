@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLockBodyScroll } from '../../hooks/useLockBodyScroll';
-import logoLight from '../../assets/logos/babuye-logo-light.svg';
+import logoLight from '../../assets/logos/babuye-logo.png';
 import { cn } from '../../utils/cn';
 
 export default function MobileMenu({ navItems, open, onClose }) {
@@ -32,8 +32,8 @@ export default function MobileMenu({ navItems, open, onClose }) {
               transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="flex items-center justify-between">
-                <Link to="/" onClick={onClose}>
-                  <img className="h-10 w-auto" src={logoLight} alt="Babuye" />
+                <Link className="focus-ring" to="/" onClick={onClose} aria-label="Babuye home">
+                  <img className="h-24 w-auto max-w-[14rem] object-contain brightness-0 invert" src={logoLight} alt="Babuye" />
                 </Link>
                 <button className="focus-ring min-h-11 px-3 text-sm uppercase" type="button" onClick={onClose}>
                   Close
